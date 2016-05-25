@@ -1,0 +1,33 @@
+.notification {
+  width: 600px;
+  color: white;
+  display: none;
+  padding: 10px;
+  margin: 10px auto;
+  position:relative;
+}
+
+.counter {
+  position:absolute;
+  right: 0;
+  top: 0;
+  font-size: 80%;
+  background-color: pink;
+  padding:3px;
+}
+
+.visible {
+  display: block;
+}
+
+.error {
+  background-color: red;
+}
+
+.success {
+  background-color: green;
+}
+
+.message {
+  background-color: blue;
+}
