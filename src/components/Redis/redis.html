@@ -2,7 +2,12 @@
   <h1>Redis </h1>
   <input v-model="tmpCommand" />
   <button @click="clickCommand"> Add Command </button>
-  <ol>
-    <li v-for="command in commands" track-by="$index">{{ command }}</li>
-  </ol>
+  <ul>
+    <template v-for="command in commands">
+    <li data-command="{{ command }}">
+      <span>{{ command }}</span>
+      <span @click="clickRemoveCommand" class='close'></span>
+    </li>
+    </template>
+  </ul>
 </div>

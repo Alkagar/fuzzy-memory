@@ -11,7 +11,7 @@
 import AlkFooter from './components/AlkFooter';
 import AHeader from './components/AHeader';
 import Notification from './components/Notification';
-import store from './store.js';
+import store from './vuex/store.js';
 
 export default {
   components: {

@@ -1,5 +1,5 @@
-import * as actions from '../../actions.js';
-import * as getters from '../../getters.js';
+import * as actions from '../../vuex/actions.js';
+import * as getters from '../../vuex/getters.js';
 import * as _ from 'lodash';
 
 export default {
@@ -12,16 +12,16 @@ export default {
     return {
       currentTimeout: 0,
       timeoutCountDown: 100,
-
+      timeoutId: null,
     };
   },
   computed: {
     classObject: function() {
       return {
-        visible: !_.isNull(this.getNotification),
-        error: this.notificationType === 'error',
-        success: this.notificationType === 'success',
-        message: this.notificationType === 'message',
+        visible: !_.isNull(this.msg),
+        error: this.type === 'error',
+        success: this.type === 'success',
+        message: this.type === 'message',
       };
     },
     timeoutFormated: function() {
@@ -33,30 +33,37 @@ export default {
       removeNotification: actions.removeNotification
     },
     getters: {
-      getNotification: getters.getNotification,
-      notificationType: getters.getNotificationType,
-      notificationTime: getters.getNotificationTime,
+      type: getters.getNotificationType,
+      msg: getters.getNotificationMsg,
+      time: getters.getNotificationTime,
     },
   },
   watch: {
-    notificationTime: function getNotification(newNotificationTime) {
-      if (!_.isNull(newNotificationTime)) {
+    time: function(time) {
+      clearTimeout(this.timeoutId);
+      if (!_.isNull(time)) {
         this.currentTimeout = this.timeout;
-        setTimeout(this.decreaseTimeout, this.timeoutCountDown);
+        this.timeoutId = setTimeout(this.decreaseTimeout, this.timeoutCountDown);
       }
     },
   },
   methods: {
     clickRemove: function clickRemove() {
+      clearTimeout(this.timeoutId);
       this.removeNotification();
     },
     decreaseTimeout: function() {
       this.currentTimeout = this.currentTimeout - this.timeoutCountDown;
       if (this.currentTimeout > 0) {
-        setTimeout(this.decreaseTimeout, this.timeoutCountDown);
+        this.timeoutId = setTimeout(this.decreaseTimeout, this.timeoutCountDown);
       } else {
         this.removeNotification();
       }
     },
+  },
+  ready: function ready() {
+    if (this.currentTimeout === 0) {
+      this.removeNotification();
+    }
   },
 };

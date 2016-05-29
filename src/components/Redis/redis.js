@@ -1,5 +1,7 @@
-import { getCommands } from '../../getters.js';
-import * as actions from '../../actions.js';
+import {
+  getCommands
+} from '../../vuex/getters.js';
+import * as actions from '../../vuex/actions.js';
 
 export default {
   data() {
@@ -9,7 +11,8 @@ export default {
     },
     vuex: {
       actions: {
-        addCommand: actions.ADD_COMMAND,
+        addCommand: actions.commandAdd,
+        removeCommand: actions.commandRemove,
         addNotification: actions.addNotification,
       },
       getters: {
@@ -17,13 +20,15 @@ export default {
       },
     },
     methods: {
+      clickRemoveCommand: function clickCommand(e) {
+        var commandToRemove = e.target.parentElement.dataset.command;
+        this.removeCommand(commandToRemove);
+      },
       clickCommand: function clickCommand() {
         if (this.tmpCommand) {
           this.addCommand(this.tmpCommand);
           this.tmpCommand = '';
-          this.addNotification('Command Added', 'success');
         } else {
-          console.log('cannot add - its empty');
           this.addNotification('Cannot add - its empty!', 'error');
         }
       },

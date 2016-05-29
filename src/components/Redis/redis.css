@@ -1,6 +1,24 @@
 h1 {
   color: #42b983;
 }
+
+ul {}
+
+li {
+  text-align: left;
+  position: relative;
+}
+
+li .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+}
+
 .page {
-  max-width: 600px;
+  width: 600px;
+  margin: 0 auto;
 }
