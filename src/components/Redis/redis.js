@@ -11,7 +11,7 @@ export default {
     },
     vuex: {
       actions: {
-        addCommand: actions.commandAdd,
+        addCommand: actions.commandSave,
         removeCommand: actions.commandRemove,
         addNotification: actions.addNotification,
       },
@@ -33,4 +33,6 @@ export default {
         }
       },
     },
+  ready: function ready() {
+  },
 };

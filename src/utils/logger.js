@@ -2,6 +2,9 @@
 
 module.exports = {
   error: function error(...args) {
-    console.log.apply(console, args); // eslint-disable-line no-console
+    console.error.apply(console, args); // eslint-disable-line no-console
+  },
+  debug: function debug(...args) {
+    console.debug.apply(console, args); // eslint-disable-line no-console
   },
 };

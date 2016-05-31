@@ -1,5 +1,7 @@
 import * as mutations from './mutations-types.js';
 import _ from 'lodash';
+import hz from './../hz.js';
+import logger from './../utils/logger.js';
 
 export const loadFromLocalStorage = (store, state) => {
   store.dispatch(mutations.LOAD_FROM_LOCAL_STORAGE, state);
@@ -11,6 +13,19 @@ export const removeNotification = (store) => {
 
 export const addNotification = (store, notification, type) => {
   store.dispatch(mutations.NOTIFICATION_ADD, notification, type);
+};
+
+export const commandSave = (store, command) => {
+  hz('commands').store({
+    command,
+  }).subscribe(
+    id => {
+      logger.debug('Item saved', id);
+      // commandAdd(store, command);
+    },
+    error => {
+      logger.error(error);
+    });
 };
 
 export const commandRemove = (store, command) => {
@@ -32,3 +47,13 @@ export const commandAdd = (store, command, silent = false) => {
     }
   }
 };
+
+hz('commands').watch({
+  rawChanges: true,
+}).subscribe(
+  data => {
+    logger.debug('commands watch feed', data);
+  },
+  error => {
+    logger.debug('commands watch error', error);
+  });

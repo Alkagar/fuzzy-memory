@@ -32,7 +32,7 @@ const localStorageMiddleware = {
   },
 };
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     commands,
     notification,
@@ -44,3 +44,7 @@ export default new Vuex.Store({
   },
   middlewares: [localStorageMiddleware],
 });
+
+store.dupa = 'MyDupaValue';
+
+export default store;
