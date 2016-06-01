@@ -2,6 +2,9 @@ import * as mutations from './mutations-types.js';
 import _ from 'lodash';
 import hz from './../hz.js';
 import logger from './../utils/logger.js';
+import {
+  commandInStore,
+} from './../helpers/helpers.js';
 
 export const loadFromLocalStorage = (store, state) => {
   store.dispatch(mutations.LOAD_FROM_LOCAL_STORAGE, state);
@@ -15,17 +18,33 @@ export const addNotification = (store, notification, type) => {
   store.dispatch(mutations.NOTIFICATION_ADD, notification, type);
 };
 
-export const commandSave = (store, command) => {
-  hz('commands').store({
-    command,
-  }).subscribe(
+export const commandRemoveFromDB = (store, command) => {
+  console.log('remove', command);
+  hz('commands').remove(command).subscribe(
     id => {
-      logger.debug('Item saved', id);
-      // commandAdd(store, command);
+      logger.debug('Item removed', id);
+      addNotification(store, 'Item removed from rethinkdb.', 'message');
     },
     error => {
       logger.error(error);
+      addNotification(store, `Uppss... error... ${error}`, 'error');
     });
+};
+
+export const commandSave = (store, command) => {
+  if (!commandInStore(store.state.commands.all, command)) {
+    addNotification(store, 'Command already in store.', 'error');
+  } else {
+    hz('commands').store(command).subscribe(
+      id => {
+        logger.debug('Item saved', id);
+        addNotification(store, 'Item saved in rethinkdb.', 'success');
+      },
+      error => {
+        logger.error(error);
+        addNotification(store, `Uppss... error... ${error}`, 'error');
+      });
+  }
 };
 
 export const commandRemove = (store, command) => {
@@ -33,27 +52,14 @@ export const commandRemove = (store, command) => {
 };
 
 export const commandAdd = (store, command, silent = false) => {
-  const inStoreBefore = store.state.commands.all.indexOf(command) >= 0;
-  store.dispatch(mutations.COMMAND_ADD, command);
-  const inStoreAfter = store.state.commands.all.indexOf(command) >= 0;
-
-  if (!silent) {
-    if (inStoreBefore && inStoreAfter) {
-      addNotification(store, 'not added - already exists', 'message');
-    } else if (!inStoreBefore && !inStoreAfter) {
-      addNotification(store, 'Error while adding', 'error');
-    } else {
-      addNotification(store, 'added', 'success');
+  if (commandInStore(store.state.commands.all, command)) {
+    if (!silent) {
+      addNotification(store, 'Command already in store.', 'message');
+    }
+  } else {
+    store.dispatch(mutations.COMMAND_ADD, command);
+    if (!silent) {
+      addNotification(store, 'Command added to awesome list!', 'success');
     }
   }
 };
-
-hz('commands').watch({
-  rawChanges: true,
-}).subscribe(
-  data => {
-    logger.debug('commands watch feed', data);
-  },
-  error => {
-    logger.debug('commands watch error', error);
-  });

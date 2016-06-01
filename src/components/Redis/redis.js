@@ -1,38 +1,41 @@
 import {
-  getCommands
+  getCommands,
 } from '../../vuex/getters.js';
+
 import * as actions from '../../vuex/actions.js';
 
 export default {
-  data() {
-      return {
-        tmpCommand: 'lrange',
-      };
-    },
-    vuex: {
-      actions: {
-        addCommand: actions.commandSave,
-        removeCommand: actions.commandRemove,
-        addNotification: actions.addNotification,
-      },
-      getters: {
-        commands: getCommands,
-      },
-    },
-    methods: {
-      clickRemoveCommand: function clickCommand(e) {
-        var commandToRemove = e.target.parentElement.dataset.command;
-        this.removeCommand(commandToRemove);
-      },
-      clickCommand: function clickCommand() {
-        if (this.tmpCommand) {
-          this.addCommand(this.tmpCommand);
-          this.tmpCommand = '';
-        } else {
-          this.addNotification('Cannot add - its empty!', 'error');
-        }
-      },
-    },
-  ready: function ready() {
+  data: function data() {
+    return {
+      tmpCommand: 'lrange',
+    };
   },
+  vuex: {
+    actions: {
+      saveCommand: actions.commandSave,
+      removeCommand: actions.commandRemoveFromDB,
+      addNotification: actions.addNotification,
+    },
+    getters: {
+      commands: getCommands,
+    },
+  },
+  methods: {
+    clickRemoveCommand: function clickCommand(e) {
+      const commandToRemove = e.target.parentElement.dataset.id;
+      console.log('ToRemove', commandToRemove);
+      this.removeCommand(commandToRemove);
+    },
+    clickCommand: function clickCommand() {
+      if (this.tmpCommand) {
+        this.saveCommand({
+          command: this.tmpCommand,
+        });
+        this.tmpCommand = '';
+      } else {
+        this.addNotification('Cannot add - its empty!', 'error');
+      }
+    },
+  },
+  ready: function ready() {},
 };

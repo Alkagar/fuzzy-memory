@@ -1,6 +1,6 @@
 <template>
   <div id="app">
- ll rethinkdb   <a-header></a-header>
+    <a-header></a-header>
     <notification></notification>
     <router-view></router-view>
     <alk-footer></alk-footer>

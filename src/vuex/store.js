@@ -8,9 +8,9 @@ import notification from './modules/notification.js';
 import * as actions from './actions.js';
 import logger from './../utils/logger.js';
 
-import {
-  LOAD_FROM_LOCAL_STORAGE,
-} from './mutations-types.js';
+// import {
+//   LOAD_FROM_LOCAL_STORAGE,
+// } from './mutations-types.js';
 
 Vue.use(Vuex);
 
@@ -37,14 +37,13 @@ const store = new Vuex.Store({
     commands,
     notification,
   },
-  mutations: {
-    [LOAD_FROM_LOCAL_STORAGE](state, newState) {
-      state.commands = newState.commands;
-    },
-  },
-  middlewares: [localStorageMiddleware],
+  // mutations: {
+  //   [LOAD_FROM_LOCAL_STORAGE](state, newState) {
+  //     state.commands = newState.commands;
+  //   },
+  // },
+  // middlewares: [localStorageMiddleware],
 });
 
-store.dupa = 'MyDupaValue';
 
 export default store;

@@ -4,6 +4,9 @@ import App from './App';
 import Home from './components/Home';
 import Redis from './components/Redis';
 
+import dataManager from './vuex/data-manager.js';
+dataManager();
+
 Vue.use(VueRouter);
 const router = new VueRouter();
 

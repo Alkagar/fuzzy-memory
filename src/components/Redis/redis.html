@@ -4,8 +4,8 @@
   <button @click="clickCommand"> Add Command </button>
   <ul>
     <template v-for="command in commands">
-    <li data-command="{{ command }}">
-      <span>{{ command }}</span>
+    <li data-id="{{ command.id }}">
+      <span>{{ command.command }}</span>
       <span @click="clickRemoveCommand" class='close'></span>
     </li>
     </template>
