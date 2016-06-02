@@ -1,4 +1,4 @@
-import horizon from '@horizon/client';
+const horizon = window.Horizon;
 
 import logger from './utils/logger.js';
 

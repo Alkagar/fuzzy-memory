@@ -32,7 +32,8 @@ export const commandRemoveFromDB = (store, command) => {
 };
 
 export const commandSave = (store, command) => {
-  if (!commandInStore(store.state.commands.all, command)) {
+  const inStore = commandInStore(store.state.commands.all, command);
+  if (inStore) {
     addNotification(store, 'Command already in store.', 'error');
   } else {
     hz('commands').store(command).subscribe(

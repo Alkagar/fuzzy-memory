@@ -28,6 +28,7 @@ export default {
     },
     clickCommand: function clickCommand() {
       if (this.tmpCommand) {
+        console.log('ddd', this.tmpCommand);
         this.saveCommand({
           command: this.tmpCommand,
         });
