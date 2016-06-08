@@ -3,19 +3,16 @@
     <a-header></a-header>
     <notification></notification>
     <router-view></router-view>
-    <alk-footer></alk-footer>
   </div>
 </template>
 
 <script>
-import AlkFooter from './components/AlkFooter';
 import AHeader from './components/AHeader';
 import Notification from './components/Notification';
 import store from './vuex/store.js';
 
 export default {
   components: {
-    AlkFooter,
     AHeader,
     Notification,
   },

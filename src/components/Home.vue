@@ -1,16 +1,12 @@
 <template>
   <div class="page page-home">
-    <h1>{{ msg }}</h1>
+    <h1>{{ $route.pageTitle }}</h1>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      msg: 'Home',
-    };
-  },
 };
 </script>
 
