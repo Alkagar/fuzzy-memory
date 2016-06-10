@@ -30,7 +30,6 @@ html, body {
 #app {
   padding-top:250px;
   color: #2c3e50;
-  text-align: center;
 }
 
 #app a {

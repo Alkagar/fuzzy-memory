@@ -1,5 +1,5 @@
-import Vue from 'vue';
 import VueMdl from 'vue-mdl';
+import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
 import Home from './components/Home';

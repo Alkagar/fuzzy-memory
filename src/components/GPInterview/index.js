@@ -7,7 +7,18 @@ import * as actions from '../../vuex/actions.js';
 export default {
   data: function data() {
     return {
-      baseCheckbox: false,
+      cards: {
+        questions: {
+          title: 'Interview questions',
+          supportingText: 'List of all question you might want to ask.',
+          actions: 'GO!',
+        },
+        candidates: {
+          title: 'List of candidates',
+          supportingText: 'List of all candidates we interviewed.',
+          actions: 'GO!',
+        },
+      },
     };
   },
   vuex: {

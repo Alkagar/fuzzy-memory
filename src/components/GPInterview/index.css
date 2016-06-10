@@ -1,0 +1,7 @@
+.mdl-card__title {
+  color: green;
+  background: url('./assets/questions.png') center / 128px no-repeat;
+}
+.mdl-card {
+  width: 100%;
+}

@@ -1,5 +1,13 @@
 <div class="page page-redis">
   <h1>GP Awesome Interview</h1>
-  <a-button></a-button>
-  <mdl-checkbox :checked.sync="baseCheckbox">dupa</mdl-checkbox>
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+      <mdl-card :title="cards.candidates.title" :supporting-text="cards.candidates.supportingText" actions="actions" actions-text="GO!"></mdl-card>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <mdl-card :title="cards.questions.title" :supporting-text="cards.questions.supportingText" actions="actions" actions-text="GO!"></mdl-card>
+    </div>
+  </div>
+
 </div>
